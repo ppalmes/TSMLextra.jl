@@ -1,6 +1,6 @@
 module TestSKL
 
-using TSML
+#using TSML
 using TSML.Utils
 using TSML.TSMLTypes
 
@@ -60,7 +60,6 @@ const regressors = [
 function fit_test(learner::String,in::T,out::Vector) where {T<:Union{Matrix,Vector}}
 	_learner=SKLearner(Dict(:learner=>learner))
 	fit!(_learner,in,out)
-	#println(learner)
 	@test _learner.model != nothing
 	return _learner
 end
@@ -69,10 +68,9 @@ function fit_transform_reg(model::TSLearner,in::T,out::Vector) where {T<:Union{M
     @test sum((transform!(model,in) .- out).^2)/length(out) < 2.0
 end
 
-
 @testset "scikit classifiers" begin
-    for cls in classifiers
-	fit_test(cls,X,Y)
+    for cl in classifiers
+	fit_test(cl,X,Y)
     end
 end
 

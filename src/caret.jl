@@ -12,16 +12,18 @@ import TSML.TSMLTypes.transform! # importing to overload
 
 using RCall
 
-R"library(caret)"
-R"library(e1071)"
-R"library(gam)"
-R"library(randomForest)"
-R"library(nnet)" 
-R"library(kernlab)"
-R"library(grid)"
-R"library(MASS)"
-R"library(pls)"
-R"library(xgboost)"
+function initlibs()
+    R"library(caret)"
+    R"library(e1071)"
+    R"library(gam)"
+    R"library(randomForest)"
+    R"library(nnet)" 
+    R"library(kernlab)"
+    R"library(grid)"
+    R"library(MASS)"
+    R"library(pls)"
+    R"library(xgboost)"
+end
 
 mutable struct CaretLearner <: TSLearner
     model
@@ -29,13 +31,14 @@ mutable struct CaretLearner <: TSLearner
 
     function CaretLearner(args=Dict())
         #fitControl=:(R"trainControl(method = 'repeatedcv',number = 5)")
-        fitControl="caret::trainControl(method = 'cv',number = 5)"
+        fitControl="trainControl(method = 'cv',number=5)"
         default_args = Dict(
             :output => :class,
             :learner => "rf",
             :fitControl=>fitControl,
             :impl_args => Dict()
         )
+        initlibs()
         new(nothing,mergedict(default_args,args))
     end
 end
@@ -54,9 +57,8 @@ function transform!(crt::CaretLearner,x::T) where  {T<:Union{Vector,Matrix}}
     return rcopy(res) # return extracted robj
 end
 
-
 function caretrun()
-    crt = CaretLearner(Dict(:learner=>"rf",:fitControl=>"")) 
+    crt = CaretLearner(Dict(:learner=>"rf") )
     iris=getiris()
     x=iris[:,1:4]  |> Matrix
     y=iris[:,5] |> Vector

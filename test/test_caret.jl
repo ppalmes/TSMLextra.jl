@@ -1,5 +1,5 @@
 module TestCaret
-using TSML
+#using TSML
 using TSML.Utils
 using TSML.TSMLTypes
 
