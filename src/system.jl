@@ -9,7 +9,6 @@ using RCall
 using Conda
 
 import PyCall: pyimport, pycall
-
 function check_py_dep(package::AbstractString)
   is_available = true
   try

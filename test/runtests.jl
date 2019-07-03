@@ -1,6 +1,8 @@
 module TestTSMLextra
 using Test
-#using TSML.System
+using TSML
+using TSMLextra
+using TSMLextra.System
 
 include("test_readerwriter.jl")
 
@@ -9,6 +11,7 @@ if LIB_SKL_AVAILABLE
 else
     @info "Skipping scikit-learn tests."
 end
+
 if LIB_CRT_AVAILABLE
     include("test_caret.jl")
 else

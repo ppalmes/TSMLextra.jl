@@ -3,7 +3,9 @@ module TestSKL
 using TSML
 using TSML.Utils
 using TSML.TSMLTypes
-using TSML.SKLearners
+
+using TSMLextra
+using TSMLextra.SKLearners
 
 using Random
 using Test

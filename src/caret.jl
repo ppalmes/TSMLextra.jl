@@ -11,6 +11,7 @@ import TSML.TSMLTypes.fit!   # importing to overload
 import TSML.TSMLTypes.transform! # importing to overload
 
 using RCall
+
 R"library(caret)"
 R"library(e1071)"
 R"library(gam)"
@@ -20,9 +21,6 @@ R"library(kernlab)"
 R"library(grid)"
 R"library(MASS)"
 R"library(pls)"
-#R"install.packages('xgboost',repos='https://cloud.r-project.org')"
-#R"install.packages('pls',repos='https://cloud.r-project.org')"
-#R"install.packages('caret', dependencies = c('Depends', 'Suggests'))"
 R"library(xgboost)"
 
 mutable struct CaretLearner <: TSLearner
@@ -30,8 +28,8 @@ mutable struct CaretLearner <: TSLearner
     args
 
     function CaretLearner(args=Dict())
-        #fitControl=:(R"trainControl(method = 'repeatedcv',number = 5,repeats = 5)")
-        fitControl="trainControl(method = 'cv',number = 5,repeats = 5)"
+        #fitControl=:(R"trainControl(method = 'repeatedcv',number = 5)")
+        fitControl="caret::trainControl(method = 'cv',number = 5)"
         default_args = Dict(
             :output => :class,
             :learner => "rf",
@@ -58,7 +56,7 @@ end
 
 
 function caretrun()
-    crt = CaretLearner(Dict(:learner=>"rf",:fitControl=>"trainControl(method='cv')")) 
+    crt = CaretLearner(Dict(:learner=>"rf",:fitControl=>"")) 
     iris=getiris()
     x=iris[:,1:4]  |> Matrix
     y=iris[:,5] |> Vector
