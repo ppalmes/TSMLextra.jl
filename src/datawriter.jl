@@ -19,10 +19,9 @@ import TSML.TSMLTypes.fit! # to overload
 import TSML.TSMLTypes.transform! # to overload
 using TSML.Utils
 
-using TSML.DataReaders
-using TSML.DataReaders: FILEFMT, DATEFMT
-
-
+using TSMLextra
+using TSMLextra.DataReaders
+using TSMLextra.DataReaders: FILEFMT, DATEFMT
 
 mutable struct DataWriter <: Transformer
     model
