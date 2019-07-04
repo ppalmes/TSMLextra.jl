@@ -17,7 +17,7 @@ function test_readerwriter()
     gcdims = (8761,2)
     ssum = 97564.0
     resdf=DataFrame()
-    datapath=joinpath(dirname(pathof(TSML)),"../data")
+    datapath=joinpath(dirname(pathof(TSMLextra)),"../data")
     outputfname = joinpath(tempdir(),"testdateval.csv")
     basefilename = "testdateval"
     fname = joinpath(datapath,basefilename*".csv")
