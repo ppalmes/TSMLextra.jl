@@ -6,35 +6,32 @@ alt="TSML Logo" width="250"></img> </div>
 |:---:|:---:|:---:|
 | [![][docs-dev-img]][docs-dev-url] [![][docs-stable-img]][docs-stable-url] | [![][travis-img]][travis-url] [![][codecov-img]][codecov-url] | [![][slack-img]][slack-url] [![][gitter-img]][gitter-url] |
 
-### TSML is a package for time series data processing, classification, clustering, and prediction written in [Julia](http://julialang.org/).
+### TSMLextra is a supporting package of [TSML](https://github.com/IBM/TSML.jl) for time series data processing, classification, clustering, and prediction written in [Julia](http://julialang.org/). 
+
+It extends TSML by adding ScikitLearn from Python and Caret from R to its ML collections. The package relies on [PyCall.jl](https://github.com/JuliaPy/PyCall.jl) and [RCall.jl](https://github.com/JuliaInterop/RCall.jl)
+to expose external ML libraries using a common API for heterogenous combination of ML ensembles. It  introduces three types of ensembles: VoteEnsemble, StackEnsemble, and BestEnsemble.
+Each ensemble allows heterogenous combinations of ML libraries from R, Python, and Julia.
 
 The design/framework of this package is influenced heavily by Samuel Jenkins' [Orchestra.jl](https://github.com/svs14/Orchestra.jl) and Paulito Palmes [CombineML.jl](https://github.com/ppalmes/CombineML.jl) packages.
 
 ## Package Features
 
-- TS aggregation based on date-time interval
-- TS imputation based on symmetric Nearest Neighbors
-- TS statistical metrics for data quality assessment
-- TS classification for automatic data discovery
-- TS machine learning models with more than 100+ libraries from caret, scikitlearn, and julia
-- TS date-value matrix conversion of 1-D TS using sliding windows for ML input
-- Pipeline API for high-level workflow processing
-- Easily extensible architecture relying on just two interfaces: fit and transform
-- Common API wrappers for ML libs from JuliaML, PyCall, and RCall 
+- extends TSML to include machine learning models from caret, scikitlearn, and julia
+- uses common API wrappers for ML libs from JuliaML, PyCall, and RCall 
 
 ## Installation
-TSML is in the Julia Official package registry. The latest release can be installed at the Julia prompt using Julia's package management which is triggered by pressing `]` at the julia prompt:
+TSMLextra is in the Julia Official package registry. The latest release can be installed at the Julia prompt using Julia's package management which is triggered by pressing `]` at the julia prompt:
 
 ```julia
 julia> ]
-(v1.1) pkg> add TSML
+(v1.1) pkg> add TSMLextra
 ```
 
 Or, equivalently, via the `Pkg` API:
 
 ```julia
 julia> using Pkg
-julia> Pkg.add("TSML")
+julia> Pkg.add("TSMLextra")
 ```
 
 ## Documentation
@@ -44,24 +41,15 @@ julia> Pkg.add("TSML")
 
 ## Project Status
 
-TSML is tested and actively developed on Julia `1.0` and above for Linux and macOS.
+TSMLextra is tested and actively developed on Julia `1.0` and above for Linux and macOS.
 
 There is no support for Julia versions `0.4`, `0.5`, `0.6` and `0.7`.
 
 ## Overview
 
-TSML (Time Series Machine Learning) is package for Time Series data processing, classification, and prediction. It combines ML libraries from Python's ScikitLearn, R's Caret, and Julia using a common API and allows seamless ensembling and integration of heterogenous ML libraries to create complex models for robust time-series prediction.
-
-The package assumes a two-column table composed of Dates and Values. The first part of the workflow aggregates values based on the specified date/time interval which minimizes occurence of missing values and noise. The aggregated data is then left-joined to the complete sequence of dates in a specified date/time interval. Remaining missing values are replaced by k nearest neighbors where k is the symmetric distance from the location of missing value. This approach can be called several times until there are no more missing values.
-
-The next part extracts the date features and convert the values into matrix form parameterized by the _size_ and _stride_ of the sliding window representing the dimension of the input for ML training and prediction.
-
-The final part combines the date features and the matrix of values as input to the ML with the output representing the values of the time periods to be predicted ahead of time.
-
-TSML uses a pipeline which iteratively calls the __fit__ and __transform__ families of functions relying on multiple dispatch to select the correct algorithm from the steps outlined above.
-
-Machine learning functions in TSML are wrappers to the corresponding Scikit-learn, Caret, and native Julia ML libraries. There are more than hundred classifiers and regression functions available using a common API. 
-
+TSMLextra (Time Series Machine Learning) is a supporting package of TSML for Time Series data processing, classification, and prediction. 
+It combines ML libraries from Python's ScikitLearn, R's Caret, and Julia using a common API and allows seamless ensembling and integration 
+of heterogenous ML libraries to create complex models for robust time-series prediction.
 
 Generally, you will need the different transformers and utils in TSML for time-series processing. To use them, it is standard in TSML code to have the following declared at the topmost part of your application:
 
