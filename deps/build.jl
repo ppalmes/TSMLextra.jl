@@ -1,14 +1,14 @@
 using PyCall: pyimport, pycall
 using RCall, Conda
 
-function installpypackage(package::AbstractString)
+function installpypackage()
 	try
-		pyimport(package)
+		pyimport("sklearn")
 	catch
 		try
-			Conda.add(package)
+			Conda.add("scikit-learn")
 		catch
-		 	println("Installation of "*package*" failed")	
+		 	println("Installation of scikitlearn failed")	
 		end
 	end
 end
@@ -33,4 +33,4 @@ function installrml()
 end
 
 installrml()
-installpypackage("scikit-learn")
+installpypackage()
