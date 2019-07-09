@@ -5,11 +5,7 @@ function installpypackage()
 	try
 		pyimport("sklearn")
 	catch
-		try
-			Conda.add("scikit-learn")
-		catch
-		 	println("Installation of scikitlearn failed")	
-		end
+		Conda.add("scikit-learn")
 	end
 end
 
@@ -17,11 +13,7 @@ function installrpackage(package::AbstractString)
 	try
 		rcall(:library,package)
 	catch
-		#try
-			R"install.packages($package,repos='https://cloud.r-project.org',type='binary')"
-		#catch
-		# 	println("Installation of "*package*" failed")	
-		#end
+		R"install.packages($package,repos='https://cloud.r-project.org')"
 	end
 end
 
