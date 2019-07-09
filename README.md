@@ -159,7 +159,7 @@ Usage questions can be posted in:
 [docs-dev-url]: https://ibm.github.io/TSML.jl/latest/
 
 [travis-img]: https://travis-ci.org/ppalmes/TSMLextra.jl.svg?branch=master
-[travis-url]: https://github.com/ppalmes/TSMLextra.jl
+[travis-url]: https://travis-ci.org/ppalmes/TSMLextra.jl
 
 [codecov-img]: https://codecov.io/gh/IBM/TSML.jl/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/IBM/TSML.jl
