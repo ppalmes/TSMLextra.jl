@@ -17,11 +17,11 @@ function installrpackage(package::AbstractString)
 	try
 		rcall(:library,package)
 	catch
-		try
+		#try
 			R"install.packages($package,repos='https://cloud.r-project.org',type='binary')"
-		catch
-		 	println("Installation of "*package*" failed")	
-		end
+		#catch
+		# 	println("Installation of "*package*" failed")	
+		#end
 	end
 end
 
