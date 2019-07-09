@@ -1,14 +1,10 @@
-<div align="center"> <img
-src="https://ibm.github.io/TSML.jl/tsmllogo/tsmllogo13.png"
-alt="TSML Logo" width="250"></img> </div>
-
 | **Documentation** | **Build Status** | **Help** |
 |:---:|:---:|:---:|
 | [![][docs-dev-img]][docs-dev-url] [![][docs-stable-img]][docs-stable-url] | [![][travis-img]][travis-url] [![][codecov-img]][codecov-url] | [![][slack-img]][slack-url] [![][gitter-img]][gitter-url] |
 
-### TSMLextra is a supporting package of [TSML](https://github.com/IBM/TSML.jl) for time series data processing, classification, clustering, and prediction written in [Julia](http://julialang.org/). 
+### TSMLextra extends [TSML](https://github.com/IBM/TSML.jl) machine learning models by incorporating ScikitLearn and Caret libraries through a common API.
 
-It extends TSML by adding ScikitLearn from Python and Caret from R to its ML collections. The package relies on [PyCall.jl](https://github.com/JuliaPy/PyCall.jl) and [RCall.jl](https://github.com/JuliaInterop/RCall.jl)
+TSMLextra relies on [PyCall.jl](https://github.com/JuliaPy/PyCall.jl) and [RCall.jl](https://github.com/JuliaInterop/RCall.jl)
 to expose external ML libraries using a common API for heterogenous combination of ML ensembles. It  introduces three types of ensembles: VoteEnsemble, StackEnsemble, and BestEnsemble.
 Each ensemble allows heterogenous combinations of ML libraries from R, Python, and Julia.
 
@@ -16,8 +12,8 @@ The design/framework of this package is influenced heavily by Samuel Jenkins' [O
 
 ## Package Features
 
-- extends TSML to include machine learning models from caret, scikitlearn, and julia
-- uses common API wrappers for ML libs from JuliaML, PyCall, and RCall 
+- extends TSML to include external machine learning libraries from R's caret and Python's scikitlearn
+- uses common API wrappers for ML training and prediction of heterogenous libraries
 
 ## Installation
 TSMLextra is in the Julia Official package registry. The latest release can be installed at the Julia prompt using Julia's package management which is triggered by pressing `]` at the julia prompt:
@@ -47,9 +43,7 @@ There is no support for Julia versions `0.4`, `0.5`, `0.6` and `0.7`.
 
 ## Overview
 
-TSMLextra (Time Series Machine Learning) is a supporting package of TSML for Time Series data processing, classification, and prediction. 
-It combines ML libraries from Python's ScikitLearn, R's Caret, and Julia using a common API and allows seamless ensembling and integration 
-of heterogenous ML libraries to create complex models for robust time-series prediction.
+TSMLextra allows mixing of heterogenous ML libraries from Python's ScikitLearn, R's Caret, and Julia using a common API for seamless ensembling to create complex models for robust time-series prediction.
 
 Generally, you will need the different transformers and utils in TSML for time-series processing. To use them, it is standard in TSML code to have the following declared at the topmost part of your application:
 
@@ -59,6 +53,8 @@ using TSML
 using TSML.TSMLTransformers
 using TSML.TSMLTypes
 using TSML.Utils
+using TSMLextra
+using TSMLextra.EnsembleMethods
 ```
 
 - #### Setup different transformers
