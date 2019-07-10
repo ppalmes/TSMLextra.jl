@@ -5,7 +5,11 @@ function installpypackage()
 	try
 		pyimport("sklearn")
 	catch
-		Conda.add("scikit-learn")
+		try
+			Conda.add("scikit-learn")
+		catch
+			println("scikit-learn failed to install")
+		end
 	end
 end
 
@@ -14,8 +18,12 @@ function installrpackage(package::AbstractString)
 		rcall(:library,package,"lib=.libPaths()")
 		#rcall(:library,package,"lib=Sys.getenv('R_LIBS_USER')")
 	catch
-		R"dir.create(path = Sys.getenv('R_LIBS_USER'), showWarnings = FALSE, recursive = TRUE)"
-		R"install.packages($package,lib=Sys.getenv('R_LIBS_USER'),repos='https://cloud.r-project.org')"
+		try
+			R"dir.create(path = Sys.getenv('R_LIBS_USER'), showWarnings = FALSE, recursive = TRUE)"
+			R"install.packages($package,lib=Sys.getenv('R_LIBS_USER'),repos='https://cloud.r-project.org',type='binary')"
+		catch
+			println("package "*package*" failed to install")
+		end
 	end
 end
 
