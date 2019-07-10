@@ -13,16 +13,12 @@ import TSML.TSMLTypes.transform! # importing to overload
 using RCall
 
 function initlibs()
-    R"library(caret)"
-    R"library(e1071)"
-    R"library(gam)"
-    R"library(randomForest)"
-    R"library(nnet)" 
-    R"library(kernlab)"
-    R"library(grid)"
-    R"library(MASS)"
-    R"library(pls)"
-    R"library(xgboost)"
+    packages = ["caret","e1071","gam","randomForest",
+                "nnet","kernlab","grid","MASS","pls","xgboost"]
+
+    for pk in packages
+        rcall(:library,pk,"lib=Sys.getenv('R_LIBS_USER')")
+    end
 end
 
 mutable struct CaretLearner <: TSLearner

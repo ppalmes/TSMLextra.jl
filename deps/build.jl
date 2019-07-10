@@ -11,9 +11,10 @@ end
 
 function installrpackage(package::AbstractString)
 	try
-		rcall(:library,package)
+		rcall(:library,package,"lib=Sys.getenv('R_LIBS_USER')")
 	catch
-		R"install.packages($package,repos='https://cloud.r-project.org')"
+		R"dir.create(path = Sys.getenv('R_LIBS_USER'), showWarnings = FALSE, recursive = TRUE)"
+		R"install.packages($package,lib=Sys.getenv('R_LIBS_USER'),repos='https://cloud.r-project.org')"
 	end
 end
 
