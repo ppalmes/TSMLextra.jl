@@ -10,11 +10,12 @@ using Conda
 
 import PyCall: pyimport, pycall
 
-function check_py_dep(package::AbstractString)
+function check_py_dep()
   is_available = true
   try
-    pyimport(package)
+    pyimport("sklearn")
   catch
+    @info "scikitlearn not available"
     is_available = false
   end
   return is_available
@@ -25,13 +26,14 @@ function check_r_dep()
   try
     R"library(caret)"
   catch
+    @info "caret not available"
     is_available = false
   end
   return is_available
 end
 
 ## Check system for python dependencies.
-LIB_SKL_AVAILABLE = check_py_dep("sklearn")
+LIB_SKL_AVAILABLE = check_py_dep()
 LIB_CRT_AVAILABLE = check_r_dep()
 
 end # module
