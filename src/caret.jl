@@ -17,7 +17,7 @@ function initlibs()
                 "nnet","kernlab","grid","MASS","pls","xgboost"]
 
     for pk in packages
-        rcall(:library,pk,"lib=Sys.getenv('R_LIBS_USER')")
+        rcall(:library,pk,"lib=.libPaths()")
     end
 end
 
