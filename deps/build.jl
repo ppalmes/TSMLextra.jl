@@ -11,7 +11,7 @@ end
 
 function installrpackage(package::AbstractString)
 	try
-		rcall(:library,package)
+		rcall(:library,package,"lib=.libPaths()")
 		#rcall(:library,package,"lib=Sys.getenv('R_LIBS_USER')")
 	catch
 		R"dir.create(path = Sys.getenv('R_LIBS_USER'), showWarnings = FALSE, recursive = TRUE)"
