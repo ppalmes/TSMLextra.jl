@@ -25,7 +25,7 @@ function test_readerwriter()
     fit!(lcsv)
     dateval=transform!(lcsv)
     @test sum(size(dateval) .== gcdims ) == 2
-    @test sum(dateval[:Value]) |> round == ssum
+    @test sum(dateval.Value) |> round == ssum
     csvname = replace(outputfname,"test"=>"out")
     wcsv = DataWriter(Dict(:filename=>csvname))
     fit!(wcsv)
@@ -34,7 +34,7 @@ function test_readerwriter()
     fit!(pcsv)
     resdf=transform!(pcsv)
     @test sum(size(resdf) .== gcdims) == 2
-    @test sum(resdf[:Value]) |> round == ssum
+    @test sum(resdf.Value) |> round == ssum
     rm(csvname,force=true)
     # check hdf5
     hdf5name = replace(outputfname,"csv"=>"h5")
@@ -45,7 +45,7 @@ function test_readerwriter()
     fit!(whdf5)
     resdf = transform!(whdf5)
     @test sum(size(resdf) .== gcdims) == 2
-    @test sum(resdf[:Value]) |> round == ssum
+    @test sum(resdf.Value) |> round == ssum
     rm(hdf5name,force=true)
     # check feather
     feathername = replace(outputfname,"csv"=>"feather")
@@ -56,7 +56,7 @@ function test_readerwriter()
     fit!(wfeather)
     resdf = transform!(wfeather)
     @test sum(size(resdf) .== gcdims) == 2
-    @test sum(resdf[:Value]) |> round == ssum
+    @test sum(resdf.Value) |> round == ssum
     rm(feathername,force=true)
     # check jld
     jldname = replace(outputfname,"csv"=>"jld")
@@ -67,7 +67,7 @@ function test_readerwriter()
     fit!(wjld)
     resdf = transform!(wjld)
     @test sum(size(resdf) .== gcdims) == 2
-    @test sum(resdf[:Value]) |> round == ssum
+    @test sum(resdf.Value) |> round == ssum
     rm(jldname,force=true)
 end
 @testset "Data Readers/Writers: csv,hdf5,feather,jld" begin

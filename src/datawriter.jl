@@ -61,8 +61,8 @@ function writefmt(::T,fname::String,data::S,datefmt::String) where {T<:Union{Val
     df = data |> DataFrame
     ncol(df) == 2 || error("dataframe should have only two columns: Date,Value")
     rename!(df,names(df)[1]=>:Date,names(df)[2]=>:Value)
-    eltype(df[:Date]) <: DateTime || error("Date format error")
-    df[:Date] = Dates.format.(df[:Date],datefmt)
+    eltype(df.Date) <: DateTime || error("Date format error")
+    df.Date = Dates.format.(df.Date,datefmt)
     df |> save(fname)
 end
 
@@ -70,15 +70,15 @@ function writefmt(atype::Union{Val{:hdf5},Val{:jld}},fname::String, data::T,date
     df = data |> DataFrame
     ncol(df) == 2 || error("dataframe should have only two columns: Date,Value")
     rename!(df,names(df)[1]=>:Date,names(df)[2]=>:Value)
-    eltype(df[:Date]) <: DateTime || error("Date format error")
-    df[:Date] = Dates.format.(df[:Date],datefmt)
+    eltype(df.Date) <: DateTime || error("Date format error")
+    df.Date = Dates.format.(df.Date,datefmt)
     if atype == Val{:hdf5}
         fileopen = h5open
     else
         fileopen = jldopen
     end
-    ldate = df[:Date]
-    lvalue = df[:Value]
+    ldate = df.Date
+    lvalue = df.Value
     fileopen(fname,"w") do file
         write(file,"dateval/date",ldate)
         write(file,"dateval/value",lvalue)

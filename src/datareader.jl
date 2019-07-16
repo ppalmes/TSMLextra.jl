@@ -62,10 +62,10 @@ function readfmt(::T,fname::String,datefmt::String) where {T<:Union{Val{:csv},Va
     df = load(fname) |> DataFrame
     ncol(df) == 2 || error("dataframe should have only two columns: Date,Value")
     rename!(df,names(df)[1]=>:Date,names(df)[2]=>:Value)
-    if eltype(df[:Date]) <: DateTime
+    if eltype(df.Date) <: DateTime
         return df
     else
-        df[:Date] = DateTime.(df[:Date],datefmt)
+        df.Date = DateTime.(df.Date,datefmt)
         return df
     end
 end
