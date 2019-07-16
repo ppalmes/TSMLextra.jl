@@ -39,7 +39,7 @@ mutable struct CaretLearner <: TSLearner
     end
 end
 
-function fit!(crt::CaretLearner,x::T,y::Vector) where  {T<:Union{Vector,Matrix}}
+function fit!(crt::CaretLearner,x::T,y::Vector) where  {T<:Union{Vector,Matrix,DataFrame}}
     xx = x |> DataFrame
     yy = y |> Vector
     rres = rcall(:train,xx,yy,method=crt.args[:learner],trControl = reval(crt.args[:fitControl]))
@@ -47,7 +47,7 @@ function fit!(crt::CaretLearner,x::T,y::Vector) where  {T<:Union{Vector,Matrix}}
     crt.model = rres
 end
 
-function transform!(crt::CaretLearner,x::T) where  {T<:Union{Vector,Matrix}}
+function transform!(crt::CaretLearner,x::T) where  {T<:Union{Vector,Matrix,DataFrame}}
     xx = x |> DataFrame
     res = rcall(:predict,crt.model,xx) #in robj
     return rcopy(res) # return extracted robj

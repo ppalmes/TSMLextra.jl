@@ -8,6 +8,8 @@ import TSML.TSMLTypes.fit! # to overload
 import TSML.TSMLTypes.transform! # to overload
 using TSML.Utils
 
+using DataFrames
+
 using PyCall
 
 function initlibs()
@@ -92,7 +94,7 @@ mutable struct SKLearner <: TSLearner
     end
 end
 
-function fit!(skl::SKLearner, x::T, y::Vector) where {T<:Union{Vector,Matrix}}
+function fit!(skl::SKLearner, x::T, y::Vector) where {T<:Union{Vector,Matrix,DataFrame}}
   impl_args = copy(skl.args[:impl_args])
   learner = skl.args[:learner]
   py_learner = learner_dict[learner]
@@ -110,7 +112,7 @@ function fit!(skl::SKLearner, x::T, y::Vector) where {T<:Union{Vector,Matrix}}
   skl.model.fit(x, y)
 end
 
-function transform!(skl::SKLearner, x::T) where {T<:Union{Vector,Matrix}}
+function transform!(skl::SKLearner, x::T) where {T<:Union{Vector,Matrix,DataFrame}}
   #return collect(skl.model[:predict](x))
   return collect(skl.model.predict(x))
 end
