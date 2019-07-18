@@ -60,7 +60,7 @@ function caretrun()
     y=iris[:,5] |> Vector
     fit!(crt,x,y)
     print(crt.model)
-    transform!(crt,x)
+    transform!(crt,x) |> collect
 end
 
 end
