@@ -3,7 +3,7 @@ using RCall, Conda
 
 function installpypackage()
 	try
-		pyimport("sklearn")
+		pyimport_conda("sklearn")
 	catch
 		try
 			Conda.add("scikit-learn")
