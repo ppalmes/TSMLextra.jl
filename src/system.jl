@@ -8,12 +8,12 @@ export LIB_SKL_AVAILABLE,
 using RCall
 using Conda
 
-import PyCall: pyimport, pycall
+import PyCall: pyimport_conda, pycall
 
 function check_py_dep()
   is_available = true
   try
-    pyimport("sklearn")
+    pyimport_conda("sklearn", "scikit-learn")
   catch
     @info "scikitlearn not available"
     is_available = false
