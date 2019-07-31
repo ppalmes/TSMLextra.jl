@@ -13,8 +13,9 @@ import TSML.TSMLTypes.transform! # importing to overload
 using RCall
 
 function initlibs()
-    packages = ["caret","e1071","gam","randomForest",
-                "nnet","kernlab","grid","MASS","pls"]
+    #packages = ["caret","e1071","gam","randomForest",
+    #            "nnet","kernlab","grid","MASS","pls"]
+    packages = ["caret","e1071","gam","randomForest"]
 
     for pk in packages
         rcall(:library,pk,"lib=.libPaths()")
