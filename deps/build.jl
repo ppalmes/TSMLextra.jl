@@ -21,7 +21,8 @@ function installrpackage(package::AbstractString)
 		try
 			R"dir.create(path = Sys.getenv('R_LIBS_USER'), showWarnings = FALSE, recursive = TRUE)"
 			R"install.packages($package,lib=Sys.getenv('R_LIBS_USER'),repos='https://cloud.r-project.org',type='binary')"
-		catch
+		catch xerror
+			println(xerror)
 			println("package "*package*" failed to install")
 		end
 	end
