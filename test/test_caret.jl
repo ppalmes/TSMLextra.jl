@@ -18,7 +18,7 @@ const XX = IRIS[:,1:1] |> Matrix
 const YY = IRIS[:,4] |> Vector
 
 #const learners=["rf","treebag","svmRadialWeights","pls","svmLinear","bagFDA","rpart"]
-const learners=["rf","treebag","svmLinear","rpart"]
+const learners=["rf","rpart"]
 
 function test_caret_fit(learner::String)
     #crt = CaretLearner(Dict(:learner=>learner,:fitControl=>"trainControl(method='cv')"))
