@@ -21,6 +21,10 @@ COPY main.jl /
 RUN /julia-1.1.1/bin/julia -e 'using Pkg; pkg"up; add https://github.com/ppalmes/TSMLextra.jl.git PackageCompiler#sd-notomls"'
 RUN /julia-1.1.1/bin/julia -e 'using TSMLextra, PackageCompiler; sysnew,sysold = compile_incremental(:TSMLextra;install=true); cp(sysnew,sysold,force=true)'
 
+RUN apt-get -y clean
+RUN apt-get -y remove build-essential
+RUN rm /julia-1.1.1-linux-x86_64.tar.gz
+
 ##FROM gcr.io/distroless/cc
 #FROM debian:buster
 #WORKDIR /

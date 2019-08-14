@@ -3,9 +3,7 @@ module CaretLearners
 export CaretLearner,fit!,transform!
 export caretrun
 
-using TSML.TSMLTypes
-using TSML.Utils
-using DataFrames
+using TSML
 
 import TSML.TSMLTypes.fit!   # importing to overload
 import TSML.TSMLTypes.transform! # importing to overload

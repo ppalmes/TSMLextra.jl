@@ -14,10 +14,8 @@ export Transformer
 export datawriterrun
 
 using TSML
-using TSML.TSMLTypes
 import TSML.TSMLTypes.fit! # to overload
 import TSML.TSMLTypes.transform! # to overload
-using TSML.Utils
 
 using TSMLextra
 using TSMLextra.DataReaders
