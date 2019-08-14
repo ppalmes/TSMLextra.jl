@@ -1,7 +1,8 @@
 module TSMLextra
-using TSML
 
-greet() = print("Hello World!")
+using Reexport
+
+@reexport using TSML
 
 include("system.jl")
 using .System

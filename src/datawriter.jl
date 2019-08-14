@@ -1,4 +1,4 @@
-module DataWriters
+@reexport module DataWriters
 using FileIO
 using CSVFiles
 using FeatherFiles
@@ -10,8 +10,6 @@ using Parquet
 using Dates
 
 export DataWriter, fit!, transform!
-export Transformer
-export datawriterrun
 
 using TSML
 import TSML.TSMLTypes.fit! # to overload

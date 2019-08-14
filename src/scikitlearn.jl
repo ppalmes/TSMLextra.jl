@@ -1,7 +1,6 @@
-module SKLearners
+@reexport module SKLearners
 
 export SKLearner,transform!,fit!
-export skkrun
 
 using TSML
 import TSML.TSMLTypes.fit! # to overload

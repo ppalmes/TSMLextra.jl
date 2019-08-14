@@ -18,6 +18,7 @@ Parquet = "626c502c-15b0-58ad-a749-f091afb673ae"
 PyCall = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"
 RCall = "6f49c342-dc21-5d91-9882-a32aef131414"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 TSML = "198dc43e-9e51-5cd7-9d40-d9794d335912"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 

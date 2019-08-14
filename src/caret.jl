@@ -1,7 +1,6 @@
-module CaretLearners
+@reexport module CaretLearners
 
 export CaretLearner,fit!,transform!
-export caretrun
 
 using TSML
 

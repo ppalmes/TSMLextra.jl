@@ -1,4 +1,4 @@
-module DataReaders
+@reexport module DataReaders
 using FileIO
 using CSVFiles
 using FeatherFiles
@@ -10,8 +10,6 @@ using Parquet
 using Dates
 
 export DataReader, fit!, transform!
-export Transformer
-export datareaderrun
 
 using TSML
 import TSML.TSMLTypes.fit! # to overload
