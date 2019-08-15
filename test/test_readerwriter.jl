@@ -33,6 +33,8 @@ end
 end
 
 function test_hdf5()
+    gcdims = (8761,2)
+    ssum = 97564.0
     resdf=DataFrame()
     datapath=joinpath(dirname(pathof(TSMLextra)),"../data")
     outputfname = joinpath(tempdir(),"testdateval.csv")
@@ -58,6 +60,8 @@ end
 end
 
 function test_feather()
+    gcdims = (8761,2)
+    ssum = 97564.0
     resdf=DataFrame()
     datapath=joinpath(dirname(pathof(TSMLextra)),"../data")
     outputfname = joinpath(tempdir(),"testdateval.csv")
@@ -83,6 +87,8 @@ end
 end
 
 function test_jld()
+    gcdims = (8761,2)
+    ssum = 97564.0
     resdf=DataFrame()
     datapath=joinpath(dirname(pathof(TSMLextra)),"../data")
     outputfname = joinpath(tempdir(),"testdateval.csv")
