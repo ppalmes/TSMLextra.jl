@@ -50,18 +50,11 @@ Generally, you will need the different transformers and utils in TSML for time-s
 - #### Load TSML and supporting submodules
 ```julia
 using TSML 
-using TSML.TSMLTransformers
-using TSML.TSMLTypes
-using TSML.Utils
 using TSMLextra
-using TSMLextra.EnsembleMethods
 ```
 
 - #### Setup different transformers
 ```julia
-using TSML: DataReader, DateValgator, DateValNNer
-using TSML: Statifier, Monotonicer, Outliernicer
-
 # Setup source data and filters to aggregate and impute hourly
 fname = joinpath(dirname(pathof(TSML)),"../data/testdata.csv")
 
