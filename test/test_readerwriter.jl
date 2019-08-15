@@ -1,16 +1,7 @@
 module TestReaderWriter
 
 using TSML
-using TSML.Utils
-using TSML.TSMLTypes
-using TSML.TSMLTransformers
-
 using TSMLextra
-using TSMLextra.DataReaders
-using TSMLextra.DataWriters
-
-using DataFrames
-using Dates
 using Test
 
 function test_readerwriter()

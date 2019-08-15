@@ -1,14 +1,7 @@
 module TestCaret
 using TSML
-using TSML.Utils
-using TSML.TSMLTypes
-
 using TSMLextra
-using TSMLextra.CaretLearners
-
-using Random
 using Test
-using RCall
 
 const IRIS = getiris()
 const X = IRIS[:,1:4] |> Matrix
@@ -18,7 +11,7 @@ const XX = IRIS[:,1:1] |> Matrix
 const YY = IRIS[:,4] |> Vector
 
 #const learners=["rf","treebag","svmRadialWeights","pls","svmLinear","bagFDA","rpart"]
-const learners=["pls"]
+const learners=["rf"]
 
 function test_caret_fit(learner::String)
     #crt = CaretLearner(Dict(:learner=>learner,:fitControl=>"trainControl(method='cv')"))

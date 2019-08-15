@@ -30,7 +30,8 @@ end
 
 function installrml()
 	#packages=["caret", "earth","mda","e1071","gam","randomForest","nnet","kernlab","grid","MASS","pls"]
-	packages=["caret", "e1071","gam","randomForest"]
+	#packages=["caret", "e1071","gam","randomForest"]
+	packages=["caret"]
 	for pk in packages
 		installrpackage(pk)
 	end

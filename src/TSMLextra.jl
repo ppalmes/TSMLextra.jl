@@ -23,5 +23,4 @@ if LIB_SKL_AVAILABLE # from System module
     using .SKLearners
 end
 
-
 end # module

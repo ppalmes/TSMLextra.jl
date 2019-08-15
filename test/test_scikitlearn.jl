@@ -1,14 +1,7 @@
 module TestSKL
 
-#using TSML
-using TSML.Utils
-using TSML.TSMLTypes
-
+using TSML
 using TSMLextra
-using TSMLextra.SKLearners
-
-using Random
-using Test
 using PyCall
 
 const IRIS = getiris()
