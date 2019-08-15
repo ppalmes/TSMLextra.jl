@@ -38,6 +38,9 @@ function test_hdf5()
     outputfname = joinpath(tempdir(),"testdateval.csv")
     basefilename = "testdateval"
     fname = joinpath(datapath,basefilename*".csv")
+    lcsv=DataReader(Dict(:filename=>fname))
+    fit!(lcsv)
+    dateval=transform!(lcsv)
     # check hdf5
     hdf5name = replace(outputfname,"csv"=>"h5")
     lhdf5 = DataWriter(Dict(:filename=>hdf5name))
@@ -60,6 +63,9 @@ function test_feather()
     outputfname = joinpath(tempdir(),"testdateval.csv")
     basefilename = "testdateval"
     fname = joinpath(datapath,basefilename*".csv")
+    lcsv=DataReader(Dict(:filename=>fname))
+    fit!(lcsv)
+    dateval=transform!(lcsv)
     # check feather
     feathername = replace(outputfname,"csv"=>"feather")
     lfeather = DataWriter(Dict(:filename=>feathername))
@@ -82,6 +88,9 @@ function test_jld()
     outputfname = joinpath(tempdir(),"testdateval.csv")
     basefilename = "testdateval"
     fname = joinpath(datapath,basefilename*".csv")
+    lcsv=DataReader(Dict(:filename=>fname))
+    fit!(lcsv)
+    dateval=transform!(lcsv)
     # check jld
     jldname = replace(outputfname,"csv"=>"jld")
     ljld = DataWriter(Dict(:filename=>jldname))
