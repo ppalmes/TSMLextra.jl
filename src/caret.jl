@@ -11,7 +11,7 @@ using RCall
 
 function initlibs()
     #packages = ["caret","e1071","gam","randomForest","nnet","kernlab","grid","MASS","pls"]
-    packages = ["caret"]
+    packages = ["caret","randomForest"]
     for pk in packages
         rcall(:library,pk,"lib=.libPaths()")
     end
@@ -23,7 +23,7 @@ mutable struct CaretLearner <: TSLearner
 
     function CaretLearner(args=Dict())
         #fitControl=:(R"trainControl(method = 'repeatedcv',number = 5)")
-        fitControl="trainControl(method = 'cv',number=5)"
+        fitControl="trainControl(method = 'none')"
         default_args = Dict(
             :output => :class,
             :learner => "rf",
