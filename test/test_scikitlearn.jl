@@ -3,6 +3,7 @@ module TestSKL
 using TSML
 using TSMLextra
 using PyCall
+using Test
 
 const IRIS = getiris()
 const X = IRIS[:,1:4] |> Matrix
