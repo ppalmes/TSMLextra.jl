@@ -1,12 +1,12 @@
 # System module.
 module System
 
+using RCall
+using Conda
 
 export LIB_SKL_AVAILABLE,
        LIB_CRT_AVAILABLE
 
-using RCall
-using Conda
 
 import PyCall: pyimport_conda, pycall
 
