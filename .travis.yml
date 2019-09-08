@@ -1,4 +1,5 @@
 # Documentation: http://docs.travis-ci.com/user/languages/julia/
+dist: bionic
 language: julia
 os:
   - linux
@@ -8,12 +9,12 @@ julia:
   - 1.1
   - nightly
 matrix:
-  fast_finish: true
   allow_failures:
     - julia: nightly
-    - os: linux
 notifications:
   email: false
+before_script:
+  - while sleep 30; do tail ~/build/ppalmes/TSMLextra.jl/deps/build.log -f ; done &
 
 before_install:
   # linux
@@ -22,8 +23,8 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get update -qq -y --allow-unauthenticated; fi
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -y --allow-unauthenticated git r-base r-base-dev r-recommended; fi
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -y --allow-unauthenticated r-cran-caret r-cran-randomforest r-cran-e1071; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -y --allow-unauthenticated python-sklearn; fi
   #- if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -y --allow-unauthenticated r-cran-caret r-cran-randomforest r-cran-mass r-cran-e1071 r-cran-gam; fi
-  #- if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -y --allow-unauthenticated python-sklearn; fi
   #- if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -y --allow-unauthenticated r-cran-kernlab r-cran-nnet r-cran-grid r-cran-pls; fi
 
   # osx
@@ -32,29 +33,8 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then wget "https://cran.rstudio.com/bin/macosx/$(wget -qO- https://cran.rstudio.com/bin/macosx/ | sed -n 's/.*href="\(R-[^"]*.pkg\)".*/\1/p' | head -n 1)"; fi
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then sudo installer -pkg R-*.pkg -target /; fi
 
-script:
-  - julia -e 'using Pkg; Pkg.update(); Pkg.add("TSML#v2.3.4"); Pkg.instantiate()'
-  - travis_wait 30 julia --code-coverage test/runtests.jl
-
 after_success:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       julia --project=coverage/ -e 'using Pkg; Pkg.instantiate();
       using Coverage; Codecov.submit(Codecov.process_folder())';
     fi
-
-#jobs:
-#  include:
-#    - stage: "Documentation"
-#      julia: 1.0
-#      os: osx
-#      script:
-#        - julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
-#        - julia --project=docs/ docs/make.jl
-#      name: "HTML"
-#      after_success: skip
-#    - script:
-#        - julia --project=docs/pdf/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
-#        - julia --project=docs/pdf/ docs/pdf/make.jl
-#      name: "PDF"
-#      after_success: skip
-#      services: docker
