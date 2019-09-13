@@ -13,8 +13,6 @@ matrix:
     - os: linux
 notifications:
   email: false
-before_script:
-  - while sleep 30; do tail ~/build/ppalmes/TSMLextra.jl/deps/build.log -f ; done &
 
 before_install:
   # linux
