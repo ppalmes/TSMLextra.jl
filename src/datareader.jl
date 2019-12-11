@@ -6,6 +6,7 @@ using Feather
 using HDF5
 using JLD
 using Parquet
+using DataFrames
 
 export DataReader, fit!, transform!
 

@@ -6,6 +6,7 @@ using HDF5
 using JLD
 using Feather
 using Parquet
+using DataFrames
 
 export DataWriter, fit!, transform!
 
@@ -74,8 +75,8 @@ function writefmt(atype::Union{Val{:hdf5},Val{:jld}},fname::String, data::T,date
     ldate = df.Date
     lvalue = df.Value
     fileopen(fname,"w") do file
-        write(file,"dateval/date",ldate)
-        write(file,"dateval/value",lvalue)
+        Base.write(file,"dateval/date",ldate)
+        Base.write(file,"dateval/value",lvalue)
     end
 end
 
