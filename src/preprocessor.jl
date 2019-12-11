@@ -1,6 +1,6 @@
-@reexport module SKLearners
+@reexport module SKPreprocessors
 
-export SKLearner,transform!,fit!
+export SKPreprocessor,transform!,fit!
 
 using TSML
 import TSML.TSMLTypes.fit! # to overload
@@ -9,132 +9,148 @@ import TSML.TSMLTypes.transform! # to overload
 using PyCall
 
 function __init__()
-  global ENS=pyimport("sklearn.ensemble") 
-  global LM=pyimport("sklearn.linear_model")
-  global DA=pyimport("sklearn.discriminant_analysis")
-  global NN=pyimport("sklearn.neighbors")
-  global SVM=pyimport("sklearn.svm")
-  global TREE=pyimport("sklearn.tree")
-  global ANN=pyimport("sklearn.neural_network")
-  global GP=pyimport("sklearn.gaussian_process")
-  global KR=pyimport("sklearn.kernel_ridge")
-  global NB=pyimport("sklearn.naive_bayes")
-  global ISO=pyimport("sklearn.isotonic")
+  global DEC=pyimport("sklearn.decomposition") 
+  global FS=pyimport("sklearn.feature_selection")
+  global IMP=pyimport("sklearn.impute")
+  global PREP=pyimport("sklearn.preprocessing")
 
   # Available scikit-learn learners.
-  global learner_dict = Dict(
-                      "AdaBoostClassifier" => ENS.AdaBoostClassifier,
-                      "BaggingClassifier" => ENS.BaggingClassifier,
-                      "ExtraTreesClassifier" => ENS.ExtraTreesClassifier,
-                      "VotingClassifier" => ENS.VotingClassifier,
-                      "GradientBoostingClassifier" => ENS.GradientBoostingClassifier,
-                      "RandomForestClassifier" => ENS.RandomForestClassifier,
-                      "LDA" => DA.LinearDiscriminantAnalysis,
-                      "QDA" => DA.QuadraticDiscriminantAnalysis,
-                      "LogisticRegression" => LM.LogisticRegression,
-                      "PassiveAggressiveClassifier" => LM.PassiveAggressiveClassifier,
-                      "RidgeClassifier" => LM.RidgeClassifier,
-                      "RidgeClassifierCV" => LM.RidgeClassifierCV,
-                      "SGDClassifier" => LM.SGDClassifier,
-                      "KNeighborsClassifier" => NN.KNeighborsClassifier,
-                      "RadiusNeighborsClassifier" => NN.RadiusNeighborsClassifier,
-                      "NearestCentroid" => NN.NearestCentroid,
-                      "SVC" => SVM.SVC,
-                      "LinearSVC" => SVM.LinearSVC,
-                      "NuSVC" => SVM.NuSVC,
-                      "MLPClassifier" => ANN.MLPClassifier,
-                      "GaussianProcessClassifier" => GP.GaussianProcessClassifier,
-                      "DecisionTreeClassifier" => TREE.DecisionTreeClassifier,
-                      "GaussianNB" => NB.GaussianNB,
-                      "MultinomialNB" => NB.MultinomialNB,
-                      "ComplementNB" => NB.ComplementNB,
-                      "BernoulliNB" => NB.BernoulliNB,
-                      "SVR" => SVM.SVR,
-                      "Ridge" => LM.Ridge,
-                      "RidgeCV" => LM.RidgeCV,
-                      "Lasso" => LM.Lasso,
-                      "ElasticNet" => LM.ElasticNet,
-                      "Lars" => LM.Lars,
-                      "LassoLars" => LM.LassoLars,
-                      "OrthogonalMatchingPursuit" => LM.OrthogonalMatchingPursuit,
-                      "BayesianRidge" => LM.BayesianRidge,
-                      "ARDRegression" => LM.ARDRegression,
-                      "SGDRegressor" => LM.SGDRegressor,
-                      "PassiveAggressiveRegressor" => LM.PassiveAggressiveRegressor,
-                      "KernelRidge" => KR.KernelRidge,
-                      "KNeighborsRegressor" => NN.KNeighborsRegressor,
-                      "RadiusNeighborsRegressor" => NN.RadiusNeighborsRegressor,
-                      "GaussianProcessRegressor" => GP.GaussianProcessRegressor,
-                      "DecisionTreeRegressor" => TREE.DecisionTreeRegressor,
-                      "RandomForestRegressor" => ENS.RandomForestRegressor,
-                      "ExtraTreesRegressor" => ENS.ExtraTreesRegressor,
-                      "AdaBoostRegressor" => ENS.AdaBoostRegressor,
-                      "GradientBoostingRegressor" => ENS.GradientBoostingRegressor,
-                      "IsotonicRegression" => ISO.IsotonicRegression,
-                      "MLPRegressor" => ANN.MLPRegressor
-                     )
+  global preprocessor_dict = Dict(
+     "DictionaryLearning" => DEC.DictionaryLearning,
+     "FactorAnalysis" => DEC.FactorAnalysis,
+     "FastICA" => DEC.FastICA,
+     "IncrementalPCA" => DEC.IncrementalPCA,
+     "KernelPCA" => DEC.KernelPCA,
+     "LatentDirichletAllocation" => DEC.LatentDirichletAllocation,
+     "MiniBatchDictionaryLearning" => DEC.MiniBatchDictionaryLearning,
+     "MiniBatchSparsePCA" => DEC.MiniBatchSparsePCA,
+     "NMF" => DEC.NMF,
+     "PCA" => DEC.PCA, 
+     "SparsePCA" => DEC.SparsePCA,
+     "SparseCoder" => DEC.SparseCoder,
+     "TruncatedSVD" => DEC.TruncatedSVD,
+     "dict_learning" => DEC.dict_learning,
+     "dict_learning_online" => DEC.dict_learning_online,
+     "fastica" => DEC.fastica,
+     "non_negative_factorization" => DEC.non_negative_factorization,
+     "sparse_encode" => DEC.sparse_encode,
+     "GenericUnivariateSelect" => FS.GenericUnivariateSelect,
+     "SelectPercentile" => FS.SelectPercentile,
+     "SelectKBest" => FS.SelectKBest,
+     "SelectFpr" => FS.SelectFpr,
+     "SelectFdr" => FS.SelectFdr,
+     "SelectFromModel"  => FS.SelectFromModel,
+     "SelectFwe" => FS.SelectFwe,
+     "RFE" => FS.RFE,
+     "RFECV" => FS.RFECV,
+     "VarianceThreshold"  => FS.VarianceThreshold,
+     "chi2" => FS.chi2,
+     "f_classif"  => FS.f_classif,
+     "f_regression" => FS.f_regression,
+     "mutual_info_classif" => FS.mutual_info_classif,
+     "mutual_info_regression" => FS.mutual_info_regression,
+     "SimpleImputer" => IMP.SimpleImputer,
+     #"IterativeImputer" => IMP.IterativeImputer,
+     #"KNNImputer" => IMP.KNNImputer,
+     "MissingIndicator" => IMP.MissingIndicator,
+     "Binarizer" => PREP.Binarizer,
+     "FunctionTransformer" => PREP.FunctionTransformer,
+     "KBinsDiscretizer" => PREP.KBinsDiscretizer,
+     "KernelCenterer" => PREP.KernelCenterer,
+     "LabelBinarizer" => PREP.LabelBinarizer,
+     "LabelEncoder" => PREP.LabelEncoder,
+     "MultiLabelBinarizer" => PREP.MultiLabelBinarizer,
+     "MaxAbsScaler" => PREP.MaxAbsScaler,
+     "MinMaxScaler" => PREP.MinMaxScaler,
+     "Normalizer" => PREP.Normalizer,
+     "OneHotEncoder" => PREP.OneHotEncoder,
+     "OrdinalEncoder" => PREP.OrdinalEncoder,
+     "PolynomialFeatures" => PREP.PolynomialFeatures,
+     "PowerTransformer" => PREP.PowerTransformer,
+     "QuantileTransformer" => PREP.QuantileTransformer,
+     "RobustScaler" => PREP.RobustScaler,
+     "StandardScaler" => PREP.StandardScaler
+     #"add_dummy_feature" => PREP.add_dummy_feature,
+     #"binarize" => PREP.binarize,
+     #"label_binarize" => PREP.label_binarize,
+     #"maxabs_scale" => PREP.maxabs_scale,
+     #"minmax_scale" => PREP.minmax_scale,
+     #"normalize" => PREP.normalize,
+     #"quantile_transform" => PREP.quantile_transform,
+     #"robust_scale" => PREP.robust_scale,
+     #"scale" => PREP.scale,
+     #"power_transform" => PREP.power_transform
+    )
 end
 
-mutable struct SKLearner <: TSLearner
+mutable struct SKPreprocessor <: Transformer
     model
     args
 
-    function SKLearner(args=Dict())
+    function SKPreprocessor(args=Dict())
         default_args=Dict(
-           :output => :class,
-           :learner => "LinearSVC",
+           :preprocessor => "PCA",
            :impl_args => Dict()
         )
         new(nothing,mergedict(default_args,args))
     end
 end
 
-function fit!(skl::SKLearner, x::T, y::Vector) where {T<:Union{Vector,Matrix,DataFrame}}
-  impl_args = copy(skl.args[:impl_args])
-  learner = skl.args[:learner]
-  py_learner = learner_dict[learner]
+function fit!(skp::SKPreprocessor, x::T, y::Vector=[]) where {T<:Union{Vector,Matrix,DataFrame}}
+  features = x |> Array
+  impl_args = copy(skp.args[:impl_args])
+  preprocessor = skp.args[:preprocessor]
+  py_preprocessor = preprocessor_dict[preprocessor]
 
-  # Assign CombineML-specific defaults if required
-  if learner == "RadiusNeighborsClassifier"
-    if get(impl_args, :outlier_label, nothing) == nothing
-      impl_options[:outlier_label] = labels[rand(1:size(labels, 1))]
-    end
-  end
-
-  # Train
-  skl.model = py_learner(;impl_args...)
-  #skl.model[:fit](x, y)
-  skl.model.fit(x, y)
+  # Train model
+  skp.model = py_preprocessor(;impl_args...)
+  skp.model.fit(features)
 end
 
-function transform!(skl::SKLearner, x::T) where {T<:Union{Vector,Matrix,DataFrame}}
+function transform!(skp::SKPreprocessor, x::T) where {T<:Union{Vector,Matrix,DataFrame}}
+  features = x |> Array
   #return collect(skl.model[:predict](x))
-  return collect(skl.model.predict(x))
+  return collect(skp.model.transform(x))
 end
 
-function skkrun()
-    iris=getiris()
-    instances=iris[:,1:4] |> Matrix
-    labels=iris[:,5] |> Vector
-    model1 = SKLearner(Dict(:learner=>"LinearSVC",:impl_args=>Dict(:max_iter=>5000)))
-    model2 = SKLearner(Dict(:learner=>"QDA"))
-    model3 = SKLearner(Dict(:learner=>"MLPClassifier"))
-    model = SKLearner(Dict(:learner=>"BernoulliNB"))
-    fit!(model,instances,labels)
-    println(sum(transform!(model,instances).==labels)/length(labels)*100)
+function skprun()
 
-    x=iris[:,1:3] |> Matrix
-    y=iris[:,4] |> Vector
-    #regmodel = SKLearner(Dict(:learner => "SVR",:impl_args=>Dict(:gamma=>"scale")))
-    #regmodel = SKLearner(Dict(:learner => "RidgeCV"))
-    regmodel = SKLearner(Dict(:learner => "GradientBoostingRegressor"))
-    #regmodel = SKLearner(Dict(:learner => "MLPRegressor"))
-    fit!(regmodel,x,y)
-    println(sum(transform!(regmodel,x).-y)/length(labels)*100)
-    xx=iris[:,1] |> Vector
-    regmodel = SKLearner(Dict(:learner => "IsotonicRegression"))
-    fit!(regmodel,xx,y)
-    println(sum(transform!(regmodel,xx).-y)/length(labels)*100)
+    iris=getiris()
+    features=iris[:,1:4] |> Matrix
+    labels=iris[:,5] |> Vector
+
+    pca = SKPreprocessor(Dict(:preprocessor=>"PCA",:impl_args=>Dict(:n_components=>3)))
+    fit!(pca,features)
+    @assert transform!(pca,features) |> x->size(x,2) == 3
+
+    svd = SKPreprocessor(Dict(:preprocessor=>"TruncatedSVD",:impl_args=>Dict(:n_components=>2)))
+    fit!(svd,features)
+    @assert transform!(svd,features) |> x->size(x,2) == 2
+
+    ica = SKPreprocessor(Dict(:preprocessor=>"FastICA",:impl_args=>Dict(:n_components=>2)))
+    fit!(ica,features)
+    @assert transform!(ica,features) |> x->size(x,2) == 2
+
+
+    stdsc = SKPreprocessor(Dict(:preprocessor=>"StandardScaler",:impl_args=>Dict()))
+    fit!(stdsc,features)
+    @assert abs(mean(transform!(stdsc,features))) < 0.00001
+
+    minmax = SKPreprocessor(Dict(:preprocessor=>"MinMaxScaler",:impl_args=>Dict()))
+    fit!(minmax,features)
+    @assert mean(transform!(minmax,features)) ≈ 0.4486931104833648
+
+    learner = VoteEnsemble()
+    learner = StackEnsemble()
+    learner = BestLearner()
+
+    pipeline = Pipeline(Dict(
+            :transformers => [stdsc,pca,learner]
+    ))
+    fit!(pipeline,features,labels)
+    pred = transform!(pipeline,features)
+    score(:accuracy,pred,labels)
+
 end
 
 end

@@ -21,6 +21,8 @@ end
 if LIB_SKL_AVAILABLE # from System module
     include("scikitlearn.jl")
     using .SKLearners
+    include("preprocessor.jl")
+    using .SKPreprocessors
 end
 
 end # module
