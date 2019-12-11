@@ -15,6 +15,7 @@ end
 
 if LIB_SKL_AVAILABLE
     include("test_scikitlearn.jl")
+    include("test_skpreprocessing.jl")
 else
     @info "Skipping scikit-learn tests."
 end
