@@ -75,10 +75,10 @@ function readfmt(atype::Union{Val{:hdf5},Val{:jld}},fname::String,datefmt::Strin
         fileopen = jldopen
     end
     ldate = fileopen(fname, "r") do file
-        read(file, "dateval/date")
+        Base.read(file, "dateval/date")
     end
     lvalue = fileopen(fname, "r") do file
-        read(file, "dateval/value")
+        Base.read(file, "dateval/value")
     end
     DataFrame(date=DateTime.(ldate,datefmt),Value=lvalue)
 end
