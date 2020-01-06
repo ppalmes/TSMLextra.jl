@@ -1,4 +1,4 @@
-@reexport module SKLearners
+module SKLearners
 
 export SKLearner,transform!,fit!
 
@@ -89,7 +89,8 @@ mutable struct SKLearner <: TSLearner
     end
 end
 
-function fit!(skl::SKLearner, x::T, y::Vector) where {T<:Union{Vector,Matrix,DataFrame}}
+function fit!(skl::SKLearner, xx::DataFrame, y::Vector)
+  x = xx |> Array
   impl_args = copy(skl.args[:impl_args])
   learner = skl.args[:learner]
   py_learner = learner_dict[learner]
@@ -107,7 +108,8 @@ function fit!(skl::SKLearner, x::T, y::Vector) where {T<:Union{Vector,Matrix,Dat
   skl.model.fit(x, y)
 end
 
-function transform!(skl::SKLearner, x::T) where {T<:Union{Vector,Matrix,DataFrame}}
+function transform!(skl::SKLearner, xx::DataFrame)
+  x = xx |> Array
   #return collect(skl.model[:predict](x))
   return collect(skl.model.predict(x))
 end

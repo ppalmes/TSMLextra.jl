@@ -4,10 +4,10 @@ using TSMLextra
 using Test
 
 const IRIS = getiris()
-const X = IRIS[:,1:4] |> Matrix
+const X = IRIS[:,1:4] |> DataFrame
 const Y = IRIS[:,5] |> Vector
 
-const XX = IRIS[:,1:1] |> Matrix
+const XX = IRIS[:,1:1] |> DataFrame
 const YY = IRIS[:,4] |> Vector
 
 #const learners=["rf","treebag","svmRadialWeights","pls","svmLinear","bagFDA","rpart"]

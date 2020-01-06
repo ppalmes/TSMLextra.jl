@@ -33,14 +33,14 @@ mutable struct DataReader <: Transformer
     end
 end
 
-function fit!(dtr::DataReader,x::T=[],y::Vector=[]) where {T<:Union{DataFrame,Vector,Matrix}}
+function fit!(dtr::DataReader,x::DataFrame=DataFrame(),y::Vector=[])
     fname = dtr.args[:filename]
     fmt = dtr.args[:dateformat]
     (fname != "" && isfile(fname) && fmt != "") || error("missing filename or date format: (",fname,"), (",fmt,")")
     dtr.model = dtr.args
 end
 
-function transform!(dtr::DataReader,x::T=[]) where {T<:Union{DataFrame,Vector,Matrix}}
+function transform!(dtr::DataReader,x::DataFrame=DataFrame())
     fullname = dtr.args[:filename]
     fmt = dtr.args[:dateformat]
     (fullname != "" && isfile(fullname) && fmt != "") || error("missing filename or date format: (",fullname,"), (",fmt,")")

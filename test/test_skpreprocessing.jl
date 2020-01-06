@@ -6,7 +6,7 @@ using PyCall
 using Test
 
 const IRIS = getiris()
-const X = IRIS[:,1:4] |> Matrix
+const X = IRIS[:,1:4] |> DataFrame
 const Y = IRIS[:,5] |> Vector
 
 const preprocessors = [
@@ -24,14 +24,14 @@ const preprocessors = [
  ]
     	
 
-function fit_test(preproc::String,in::T,out::Vector) where {T<:Union{Matrix,Vector}}
+function fit_test(preproc::String,in::DataFrame,out::Vector)
 	_preproc=SKPreprocessor(Dict(:preprocessor=>preproc))
 	fit!(_preproc,in,out)
 	@test _preproc.model != nothing
 	return _preproc
 end
 
-function transform_test(preproc::String,in::T,out::Vector) where {T<:Union{Matrix,Vector}}
+function transform_test(preproc::String,in::DataFrame,out::Vector)
 	_preproc=SKPreprocessor(Dict(:preprocessor=>preproc))
 	fit!(_preproc,in,out)
 	res = transform!(_preproc,in)
