@@ -1,4 +1,4 @@
-@reexport module CaretLearners
+module CaretLearners
 
 export CaretLearner,fit!,transform!
 
@@ -35,16 +35,13 @@ mutable struct CaretLearner <: TSLearner
     end
 end
 
-function fit!(crt::CaretLearner,x::T,y::Vector) where  {T<:Union{Vector,Matrix,DataFrame}}
-    xx = x |> DataFrame
-    yy = y |> Vector
+function fit!(crt::CaretLearner,xx::DataFrame,yy::Vector)
     rres = rcall(:train,xx,yy,method=crt.args[:learner],trControl = reval(crt.args[:fitControl]))
     #crt.model = R"$rres$finalModel"
     crt.model = rres
 end
 
-function transform!(crt::CaretLearner,x::T) where  {T<:Union{Vector,Matrix,DataFrame}}
-    xx = x |> DataFrame
+function transform!(crt::CaretLearner,xx::DataFrame)
     res = rcall(:predict,crt.model,xx) #in robj
     return rcopy(res) # return extracted robj
 end

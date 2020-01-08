@@ -1,7 +1,7 @@
 name = "TSMLextra"
 uuid = "0c7047ce-818d-11e9-1109-0323cd70e08d"
 authors = ["Paulito Palmes <ppalmes@gmail.com>"]
-version = "0.1.5"
+version = "0.1.6"
 
 [deps]
 CSVFiles = "5d742f6a-9f54-50ce-8119-2520741973ca"
@@ -20,7 +20,6 @@ TSML = "198dc43e-9e51-5cd7-9d40-d9794d335912"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
-julia = "1"
 CSVFiles = "0.12, 0.13, 0.14, 0.15, 0.16"
 Conda = "1.0, 1.1, 1.2, 1.3"
 DataFrames = "0.17, 0.18, 0.19, 0.20, 1.0"
@@ -34,6 +33,8 @@ PyCall = "1.90, 1.91"
 RCall = "0.10, 0.11, 0.12, 0.13"
 Reexport = "0.1, 0.2, 0.3"
 TSML = "2.3, 2.4"
+julia = "1"
+
 [extras]
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"

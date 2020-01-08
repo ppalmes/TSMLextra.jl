@@ -6,10 +6,10 @@ using PyCall
 using Test
 
 const IRIS = getiris()
-const X = IRIS[:,1:4] |> Matrix
+const X = IRIS[:,1:4] |> DataFrame
 const Y = IRIS[:,5] |> Vector
 
-const XX = IRIS[:,1:1] |> Matrix
+const XX = IRIS[:,1:1] |> DataFrame
 const YY = IRIS[:,4] |> Vector
 
 const classifiers = [
@@ -51,14 +51,14 @@ const regressors = [
 ]
     	
 
-function fit_test(learner::String,in::T,out::Vector) where {T<:Union{Matrix,Vector}}
+function fit_test(learner::String,in::DataFrame,out::Vector)
 	_learner=SKLearner(Dict(:learner=>learner))
 	fit!(_learner,in,out)
 	@test _learner.model != nothing
 	return _learner
 end
 
-function fit_transform_reg(model::TSLearner,in::T,out::Vector) where {T<:Union{Matrix,Vector}}
+function fit_transform_reg(model::TSLearner,in::DataFrame,out::Vector)
     @test sum((transform!(model,in) .- out).^2)/length(out) < 2.0
 end
 

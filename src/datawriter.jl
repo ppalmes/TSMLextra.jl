@@ -32,14 +32,14 @@ mutable struct DataWriter <: Transformer
     end
 end
 
-function fit!(dtr::DataWriter,x::T=[],y::Vector=[]) where {T<:Union{DataFrame,Vector,Matrix}}
+function fit!(dtr::DataWriter,x::DataFrame=DataFrame(),y::Vector=[])
     fname = dtr.args[:filename]
     fmt = dtr.args[:dateformat]
     (fname != "" && fmt != "") || error("missing filename or date format")
     dtr.model = dtr.args
 end
 
-function transform!(dtr::DataWriter,x::T=[]) where {T<:Union{DataFrame,Vector,Matrix}}
+function transform!(dtr::DataWriter,x::DataFrame=DataFrame())
     fullname = dtr.args[:filename]
     fmt = dtr.args[:dateformat]
     (fullname != "" && fmt != "") || error("missing filename or date format")

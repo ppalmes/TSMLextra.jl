@@ -1,4 +1,4 @@
-@reexport module SKPreprocessors
+module SKPreprocessors
 
 export SKPreprocessor,transform!,fit!
 
@@ -96,7 +96,7 @@ mutable struct SKPreprocessor <: Transformer
     end
 end
 
-function fit!(skp::SKPreprocessor, x::T, y::Vector=[]) where {T<:Union{Vector,Matrix,DataFrame}}
+function fit!(skp::SKPreprocessor, x::DataFrame, y::Vector=[])
   features = x |> Array
   impl_args = copy(skp.args[:impl_args])
   preprocessor = skp.args[:preprocessor]
@@ -107,10 +107,10 @@ function fit!(skp::SKPreprocessor, x::T, y::Vector=[]) where {T<:Union{Vector,Ma
   skp.model.fit(features)
 end
 
-function transform!(skp::SKPreprocessor, x::T) where {T<:Union{Vector,Matrix,DataFrame}}
+function transform!(skp::SKPreprocessor, x::DataFrame)
   features = x |> Array
   #return collect(skl.model[:predict](x))
-  return collect(skp.model.transform(x))
+  return collect(skp.model.transform(features))
 end
 
 function skprun()
