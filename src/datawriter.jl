@@ -1,4 +1,4 @@
-@reexport module DataWriters
+module DataWriters
 using FileIO
 using CSVFiles
 using FeatherFiles

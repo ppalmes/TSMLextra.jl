@@ -24,3 +24,5 @@ end
 @testset "CrossValidator" begin
   test_skcrossvalidator()
 end
+
+end
