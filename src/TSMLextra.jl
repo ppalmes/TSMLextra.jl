@@ -29,6 +29,9 @@ if LIB_SKL_AVAILABLE # from System module
     include("preprocessor.jl")
     using .SKPreprocessors
     export SKPreprocessor
+    include("skcrossvalidator.jl")
+    using .SKCrossValidators
+    export crossvalidate
 end
 
 end # module
