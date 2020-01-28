@@ -40,6 +40,7 @@ end
 
 @testset "scikit preprocessors fit test" begin
     for cl in preprocessors
+	println(cl)
 	fit_test(cl,X,Y)
     end
 end
