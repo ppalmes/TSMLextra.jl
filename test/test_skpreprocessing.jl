@@ -9,6 +9,7 @@ const IRIS = getiris()
 const X = IRIS[:,1:4] |> DataFrame
 const Y = IRIS[:,5] |> Vector
 
+# "KernelCenterer",
 const preprocessors = [
      "DictionaryLearning", "FactorAnalysis", "FastICA", "IncrementalPCA",
      "KernelPCA", "LatentDirichletAllocation", "MiniBatchDictionaryLearning",
@@ -17,7 +18,7 @@ const preprocessors = [
      "VarianceThreshold",
      "SimpleImputer", "MissingIndicator", 
      "Binarizer", "FunctionTransformer",
-     "KBinsDiscretizer", "KernelCenterer", 
+     "KBinsDiscretizer",
      "MultiLabelBinarizer", "MaxAbsScaler", "MinMaxScaler", "Normalizer",
      "OneHotEncoder", "OrdinalEncoder", "PolynomialFeatures", "PowerTransformer", 
      "QuantileTransformer", "RobustScaler", "StandardScaler"
@@ -40,6 +41,7 @@ end
 
 @testset "scikit preprocessors fit test" begin
     for cl in preprocessors
+	println(cl)
 	fit_test(cl,X,Y)
     end
 end
