@@ -110,7 +110,7 @@ end
 function transform!(skp::SKPreprocessor, x::DataFrame)
   features = x |> Array
   #return collect(skl.model[:predict](x))
-  return collect(skp.model.transform(features))
+  return collect(skp.model.transform(features)) |> DataFrame
 end
 
 function skprun()
