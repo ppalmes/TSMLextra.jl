@@ -22,7 +22,6 @@ function __init__()
                           "fbeta_score" => SKM.fbeta_score,
                           "hamming_loss" => SKM.hamming_loss,
                           "hinge_loss" => SKM.hinge_loss,
-                          "jaccard_score" => SKM.jaccard_score,
                           "log_loss" => SKM.log_loss,
                           "matthews_corrcoef" => SKM.matthews_corrcoef,
                           "multilabel_confusion_matrix" => SKM.multilabel_confusion_matrix,
@@ -32,6 +31,7 @@ function __init__()
                           "recall_score" => SKM.recall_score,
                           "roc_auc_score" => SKM.roc_auc_score,
                           "roc_curve" => SKM.roc_curve,
+                          "jaccard_score" => SKM.jaccard_score,
                           "zero_one_loss" => SKM.zero_one_loss
                          )
 end
