@@ -9,18 +9,17 @@ const IRIS = getiris()
 const X = IRIS[:,1:4] |> DataFrame
 const Y = IRIS[:,5] |> Vector
 
-# "KernelCenterer",
+# "KernelCenterer","MissingIndicator","KBinsDiscretizer","OneHotEncoder", 
 const preprocessors = [
      "DictionaryLearning", "FactorAnalysis", "FastICA", "IncrementalPCA",
      "KernelPCA", "LatentDirichletAllocation", "MiniBatchDictionaryLearning",
      "MiniBatchSparsePCA", "NMF", "PCA", 
      "TruncatedSVD", 
      "VarianceThreshold",
-     "SimpleImputer", "MissingIndicator", 
+     "SimpleImputer",  
      "Binarizer", "FunctionTransformer",
-     "KBinsDiscretizer",
      "MultiLabelBinarizer", "MaxAbsScaler", "MinMaxScaler", "Normalizer",
-     "OneHotEncoder", "OrdinalEncoder", "PolynomialFeatures", "PowerTransformer", 
+     "OrdinalEncoder", "PolynomialFeatures", "PowerTransformer", 
      "QuantileTransformer", "RobustScaler", "StandardScaler"
  ]
     	
@@ -48,6 +47,7 @@ end
 
 @testset "scikit preprocessors transform test" begin
     for cl in preprocessors
+	println(cl)
 	transform_test(cl,X,Y)
     end
 end
@@ -70,13 +70,12 @@ function skptest()
 
     stdsc = SKPreprocessor(Dict(:preprocessor=>"StandardScaler",:impl_args=>Dict()))
     fit!(stdsc,features)
-    @test abs(mean(transform!(stdsc,features))) < 0.00001
+    @test abs(mean(transform!(stdsc,features) |> Matrix)) < 0.00001
 
     minmax = SKPreprocessor(Dict(:preprocessor=>"MinMaxScaler",:impl_args=>Dict()))
     fit!(minmax,features)
-    @test mean(transform!(minmax,features)) ≈ 0.4486931104833648
+    @test mean(transform!(minmax,features) |> Matrix) ≈ 0.4486931104833648
 end
-
 @testset "scikit preprocessor fit/transform test with real data" begin
     skptest()
 end

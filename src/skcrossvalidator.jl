@@ -22,7 +22,7 @@ function __init__()
                           "fbeta_score" => SKM.fbeta_score,
                           "hamming_loss" => SKM.hamming_loss,
                           "hinge_loss" => SKM.hinge_loss,
-                          "jaccard_score" => SKM.jaccard_score,
+                          "jaccard_similarity_score" => SKM.jaccard_similarity_score,
                           "log_loss" => SKM.log_loss,
                           "matthews_corrcoef" => SKM.matthews_corrcoef,
                           "multilabel_confusion_matrix" => SKM.multilabel_confusion_matrix,

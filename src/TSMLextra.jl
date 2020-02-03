@@ -26,7 +26,7 @@ if LIB_SKL_AVAILABLE # from System module
     include("scikitlearn.jl")
     using .SKLearners
     export SKLearner
-    include("preprocessor.jl")
+    include("skpreprocessor.jl")
     using .SKPreprocessors
     export SKPreprocessor
     include("skcrossvalidator.jl")
