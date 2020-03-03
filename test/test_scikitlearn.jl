@@ -10,7 +10,7 @@ const IRIS = getiris()
 const X = IRIS[:,1:4] |> DataFrame
 const Y = IRIS[:,5] |> Vector
 
-const XX = IRIS[:,1:1] |> DataFrame
+const XX = IRIS[:,1:3] |> DataFrame
 const YY = IRIS[:,4] |> Vector
 
 const classifiers = [
