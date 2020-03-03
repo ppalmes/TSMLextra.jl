@@ -1,5 +1,6 @@
 module TestSKPreprocessing
 
+using Random
 using TSML
 using TSMLextra
 using PyCall
@@ -39,6 +40,7 @@ function transform_test(preproc::String,in::DataFrame,out::Vector)
 end
 
 @testset "scikit preprocessors fit test" begin
+    Random.seed!(123)
     for cl in preprocessors
 	println(cl)
 	fit_test(cl,X,Y)
@@ -46,6 +48,7 @@ end
 end
 
 @testset "scikit preprocessors transform test" begin
+    Random.seed!(123)
     for cl in preprocessors
 	println(cl)
 	transform_test(cl,X,Y)
@@ -77,6 +80,7 @@ function skptest()
     @test mean(transform!(minmax,features) |> Matrix) ≈ 0.4486931104833648
 end
 @testset "scikit preprocessor fit/transform test with real data" begin
+    Random.seed!(123)
     skptest()
 end
 

@@ -5,7 +5,6 @@ using Random
 using TSMLextra
 
 function test_skcrossvalidator()
-  Random.seed!(123)
   data=getiris()
   X=data[:,1:4]
   Y=data[:,5] |> Vector{String}
@@ -22,6 +21,7 @@ function test_skcrossvalidator()
   @test crossvalidate(ppl1,X,Y,"recall_score","weighted").mean > 0.80
 end
 @testset "CrossValidator" begin
+  Random.seed!(123)
   test_skcrossvalidator()
 end
 

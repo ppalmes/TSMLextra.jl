@@ -1,5 +1,6 @@
 module TestSKL
 
+using Random
 using TSML
 using TSMLextra
 using PyCall
@@ -63,12 +64,14 @@ function fit_transform_reg(model::TSLearner,in::DataFrame,out::Vector)
 end
 
 @testset "scikit classifiers" begin
+    Random.seed!(123)
     for cl in classifiers
 	fit_test(cl,X,Y)
     end
 end
 
 @testset "scikit regressors" begin
+    Random.seed!(123)
     for rg in regressors
 	model=fit_test(rg,XX,YY)
 	fit_transform_reg(model,XX,YY)

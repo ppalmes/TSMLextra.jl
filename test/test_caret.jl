@@ -1,4 +1,5 @@
 module TestCaret
+using Random
 using TSML
 using TSMLextra
 using Test
@@ -30,6 +31,7 @@ function test_caret_transform(learner::String)
 end
 
 if !Sys.islinux() # bug in travis using old linux and R versions
+    Random.seed!(123)
     @testset "caret training classifiers" begin
 	for lrn in learners
 	    test_caret_fit(lrn)
