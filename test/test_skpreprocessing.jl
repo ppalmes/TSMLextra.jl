@@ -12,10 +12,15 @@ const Y = IRIS[:,5] |> Vector
 
 # "KernelCenterer","MissingIndicator","KBinsDiscretizer","OneHotEncoder", 
 const preprocessors = [
-     "DictionaryLearning", "FactorAnalysis", "FastICA", "IncrementalPCA",
-     "KernelPCA", "LatentDirichletAllocation", "MiniBatchDictionaryLearning",
-     "MiniBatchSparsePCA", "NMF", "PCA", 
-     "TruncatedSVD", 
+     "FastICA", "IncrementalPCA",
+     "KernelPCA", "LatentDirichletAllocation", 
+     #"DictionaryLearning", 
+     #"FactorAnalysis", 
+     #"MiniBatchDictionaryLearning",
+     #"MiniBatchSparsePCA", 
+     #"NMF", 
+     #"PCA", 
+     #"TruncatedSVD", 
      "VarianceThreshold",
      "SimpleImputer",  
      "Binarizer", "FunctionTransformer",
@@ -59,13 +64,13 @@ function skptest()
     features = X
     labels = Y
 
-    pca = SKPreprocessor(Dict(:preprocessor=>"PCA",:impl_args=>Dict(:n_components=>3)))
+    pca = SKPreprocessor(Dict(:preprocessor=>"IncrementalPCA",:impl_args=>Dict(:n_components=>3)))
     fit!(pca,features)
     @test transform!(pca,features) |> x->size(x,2) == 3
 
-    svd = SKPreprocessor(Dict(:preprocessor=>"TruncatedSVD",:impl_args=>Dict(:n_components=>2)))
-    fit!(svd,features)
-    @test transform!(svd,features) |> x->size(x,2) == 2
+    norml = SKPreprocessor(Dict(:preprocessor=>"Normalizer"))
+    fit!(norml,features)
+    @test transform!(norml,features) |> x->size(x,2) == 4
 
     ica = SKPreprocessor(Dict(:preprocessor=>"FastICA",:impl_args=>Dict(:n_components=>2)))
     fit!(ica,features)

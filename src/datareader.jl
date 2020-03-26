@@ -11,8 +11,8 @@ using DataFrames
 export DataReader, fit!, transform!
 
 using TSML
-import TSML.TSMLTypes.fit! # to overload
-import TSML.TSMLTypes.transform! # to overload
+import TSML.fit! # to overload
+import TSML.transform! # to overload
 
 const FILEFMT = Dict("csv"=>Val(:csv),"feather"=>Val(:feather),"hdf5"=>Val(:hdf5),
           "h5"=>Val(:hdf5),"parquet"=>Val(:parquet),"jld"=>Val(:jld))

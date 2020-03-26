@@ -11,8 +11,8 @@ using DataFrames
 export DataWriter, fit!, transform!
 
 using TSML
-import TSML.TSMLTypes.fit! # to overload
-import TSML.TSMLTypes.transform! # to overload
+import TSML.fit! # to overload
+import TSML.transform! # to overload
 
 using TSMLextra
 using TSMLextra.DataReaders

@@ -4,8 +4,8 @@ export CaretLearner,fit!,transform!
 
 using TSML
 
-import TSML.TSMLTypes.fit!   # importing to overload
-import TSML.TSMLTypes.transform! # importing to overload
+import TSML.fit!   # importing to overload
+import TSML.transform! # importing to overload
 
 using RCall
 
@@ -17,7 +17,7 @@ function initlibs()
     end
 end
 
-mutable struct CaretLearner <: TSLearner
+mutable struct CaretLearner <: Learner
     model
     args
 

@@ -3,8 +3,8 @@ module SKLearners
 export SKLearner,transform!,fit!
 
 using TSML
-import TSML.TSMLTypes.fit! # to overload
-import TSML.TSMLTypes.transform! # to overload
+import TSML.fit! # to overload
+import TSML.transform! # to overload
 
 using PyCall
 
@@ -75,7 +75,7 @@ function __init__()
                      )
 end
 
-mutable struct SKLearner <: TSLearner
+mutable struct SKLearner <: Learner
     model
     args
 
