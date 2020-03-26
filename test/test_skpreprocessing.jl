@@ -13,7 +13,8 @@ const Y = IRIS[:,5] |> Vector
 # "KernelCenterer","MissingIndicator","KBinsDiscretizer","OneHotEncoder", 
 const preprocessors = [
      "FastICA", "IncrementalPCA",
-     "KernelPCA", "LatentDirichletAllocation", 
+     "LatentDirichletAllocation", 
+     #"KernelPCA", 
      #"DictionaryLearning", 
      #"FactorAnalysis", 
      #"MiniBatchDictionaryLearning",
