@@ -106,6 +106,22 @@ respipe2 = fit_transform!(mpipeline2)
 @show respipe2
 ```
 
+- #### Load csv data and learn input/output mapping
+```julia
+iris = getiris()
+X = iris[:,1:4]
+Y = iris[:,5] |> Vector
+ohe=OneHotEncoder()
+rf = RandomForest()
+numf =  NumFeatureSelector()
+catf = CatFeatureSelector()
+pca = SKPreprocessor(Dict(:preprocessor=>"PCA"))
+
+ppp = @pipeline (catf |> ohe ) + numf |> rf
+
+crossvalidate(ppp,X,Y)
+```
+
 ## Feature Requests and Contributions
 
 We welcome contributions, feature requests, and suggestions. Here is the link to open an [issue][issues-url] for any problems you encounter. If you want to contribute, please follow the guidelines in [contributors page][contrib-url].
