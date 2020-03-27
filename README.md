@@ -106,7 +106,7 @@ respipe2 = fit_transform!(mpipeline2)
 @show respipe2
 ```
 
-- #### Load csv data and learn input/output mapping
+- #### Using Random Forest Learner
 ```julia
 iris = getiris()
 X = iris[:,1:4]
