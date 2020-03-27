@@ -69,12 +69,8 @@ outnicer = Outliernicer(Dict(:dateinterval => Dates.Hour(1))) # normalize outlie
 - #### Load csv data, aggregate, and get statistics
 ```julia
 # Setup pipeline without imputation and run
-mpipeline1 = Pipeline(Dict(
-  :transformers => [csvreader,valgator,stfier]
- )
-)
-fit!(mpipeline1)
-respipe1 = transform!(mpipeline1)
+mpipeline1 = @pipeline csvreader |> valgator |> stfier
+respipe1 = fit_transform!(mpipeline1)
 
 # Show statistics including blocks of missing data stats
 @show respipe1
@@ -83,12 +79,8 @@ respipe1 = transform!(mpipeline1)
  - #### Load csv data, aggregate, impute, and get statistics
 ```julia
 # Add imputation in the pipeline and rerun
-mpipeline2 = Pipeline(Dict(
-  :transformers => [csvreader,valgator,valnner,stfier]
- )
-)
-fit!(mpipeline2)
-respipe2 = transform!(mpipeline2)
+mpipeline2 = @pipeline csvreader |> valgator |> valnner |> stfier
+respipe2 = fit_transform!(mpipeline2)
 
 # Show statistics including blocks of missing data stats
 @show respipe2
@@ -97,12 +89,8 @@ respipe2 = transform!(mpipeline2)
 - #### Load csv data, aggregate, impute, and normalize outliers
 ```julia
 # Add imputation in the pipeline and rerun
-mpipeline2 = Pipeline(Dict(
-  :transformers => [csvreader,valgator,valnner,outnicer]
- )
-)
-fit!(mpipeline2)
-respipe2 = transform!(mpipeline2)
+mpipeline2 = @pipeline csvreader |> valgator |> valnner |> outnicer
+respipe2 = fit_transform!(mpipeline2)
 
 # Show statistics including blocks of missing data stats
 @show respipe2
@@ -111,12 +99,8 @@ respipe2 = transform!(mpipeline2)
 - #### Load csv data, aggregate, impute, and normalize monotonic data
 ```julia
 # Add imputation in the pipeline and rerun
-mpipeline2 = Pipeline(Dict(
-  :transformers => [csvreader,valgator,valnner,mono]
- )
-)
-fit!(mpipeline2)
-respipe2 = transform!(mpipeline2)
+mpipeline2 =  @pipeline csvreader |> valgator |> valnner |> mono
+respipe2 = fit_transform!(mpipeline2)
 
 # Show statistics including blocks of missing data stats
 @show respipe2
